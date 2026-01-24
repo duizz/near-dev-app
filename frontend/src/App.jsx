@@ -3,6 +3,7 @@ import './App.css'
 import './Sidebar.css'
 import './Main.css'
 import api from "./services/api"
+import DevItem from "./components/DevItem/index.jsx"
 
 function App() {
 
@@ -80,17 +81,7 @@ function App() {
             </li>
           )}
           {devs.map(dev => (
-            <li key={dev.id} className="dev-item">
-              <header>
-                <img src={dev.avatar_url} alt={dev.name}/>
-                <div className="user-info">
-                  <strong>{dev.name}</strong>
-                  <span>{dev.techs?.join(', ')}</span>
-                </div>
-              </header>
-              <p>{dev.bio ? dev.bio : "Sem informação!"}</p>
-              <a href={`https://github.com/${dev.login}`}>Acessar perfil GitHub</a>
-            </li>
+            <DevItem key={dev.id} dev={dev}/>
           ))}
         </ul>
       </main>
