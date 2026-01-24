@@ -1,5 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
+:root {
+    --color-text-primary: #333;
+    --color-text-secondary: #666;
+    --color-text-tertiary: #999;
+    --color-text-label: #ACACAC;
+    --color-text-white: #fff;
+    --color-text-link: #2e7ad1;
+    --color-text-link-hover: #1a4679;
+    --color-text-error: #9c0000;
+    
+    --color-button-bg: #3575c9;
+    --color-button-bg-hover: #1560c2;
+}
+
 * {
     margin: 0;
     padding: 0;

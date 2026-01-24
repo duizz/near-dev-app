@@ -24,28 +24,28 @@ li.dev-item header .user-info {
 .user-info strong {
     display: block;
     font-size: 16px;
-    color: #333;
+    color: var(--color-text-primary);
 }
 
 .user-info span {
     font-size: 13px;
-    color: #999;
+    color: var(--color-text-tertiary);
     margin-top: 2px;
 }
 
 li.dev-item p {
-    color: #666;
+    color: var(--color-text-secondary);
     font-size: 14px;
     line-height: 20px;
     margin: 10px 0;
 }
 
 li.dev-item a {
-    color: #8e4dff;
+    color: var(--color-text-link);
     text-decoration: none;
     font-size: 14px;
 }
 
 li.dev-item a:hover {
-    color: #5a2ea6;
+    color: var(--color-text-link-hover);
 }

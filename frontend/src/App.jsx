@@ -4,7 +4,6 @@ import DevForm from './components/DevForm/index.jsx'
 import DevItem from "./components/DevItem/index.jsx"
 import './Main.css'
 import api from "./services/api"
-import './Sidebar.css'
 
 function App() {
 
