@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react"
 import './App.css'
-import './Sidebar.css'
+import DevForm from './components/DevForm/index.jsx'
+import DevItem from "./components/DevItem/index.jsx"
 import './Main.css'
 import api from "./services/api"
-import DevItem from "./components/DevItem/index.jsx"
+import './Sidebar.css'
 
 function App() {
 
-  const [login, setLogin ] = useState('')
-  const [techs, setTechs] = useState('')
   const [devs, setDevs] = useState([])
   const [error, setError] = useState(null)
 
@@ -25,53 +24,20 @@ function App() {
     loadDevs()
   }, [])
 
-  async function handleAddDev(e) {
-    e.preventDefault();
-
-    const techsArray = techs.split(',').map(tech => tech.trim());
-
+  async function handleAddDev(data) {
     const response = await api.post(
       "/save", 
-      { login, techs: techsArray})
+      data)
 
-    setLogin('');
-    setTechs('');
     setDevs([...devs, response.data])
     setError(null)
-
   }
 
   return (
     <div id="app">
       <aside>
         <strong>Cadastrar</strong>
-        <form onSubmit={handleAddDev}>
-          <div className="input-block">
-            <label htmlFor="github_username">Usuário Github</label>
-            <input 
-              type="text"
-              placeholder="Insira seu usuario"
-              id="github_username"
-              name="github_username"
-              value={login}
-              onChange={e => setLogin(e.target.value)}
-              required
-            />
-          </div>
-          <div className="input-block">
-            <label htmlFor="techs">Tecnologias</label>
-            <input 
-              type="text"
-              placeholder="Insira as tecnologias"
-              id="techs"
-              name="techs"
-              value={techs}
-              onChange={e => setTechs(e.target.value)}
-              required
-            />
-          </div>
-          <button input="submit">Salvar</button>
-        </form>
+        <DevForm onSubmit={handleAddDev}/>
       </aside>
       <main>
         <ul>
