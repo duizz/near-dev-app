@@ -15,6 +15,14 @@ main ul {
     }
 }
 
+.dev-error {
+    display: block;
+    text-align: center;
+    color: #9c0000;
+    font-size: 20px;
+    font-weight: bold;
+}
+
 li.dev-item {
     background: #fff;
     box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);

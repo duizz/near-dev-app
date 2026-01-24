@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import axios from "axios"
 import './App.css'
 import './Sidebar.css'
 import './Main.css'
@@ -10,11 +9,17 @@ function App() {
   const [login, setLogin ] = useState('')
   const [techs, setTechs] = useState('')
   const [devs, setDevs] = useState([])
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     async function loadDevs() {
-      const response = await api.get("/list")
-      setDevs(response.data)
+      try {
+        const response = await api.get("/list")
+        setDevs(response.data)
+      } catch (error) {
+        const errMessage = error.response?.data?.error
+        setError(errMessage)
+      }
     }
     loadDevs()
   }, [])
@@ -31,6 +36,7 @@ function App() {
     setLogin('');
     setTechs('');
     setDevs([...devs, response.data])
+    setError(null)
 
   }
 
@@ -68,13 +74,18 @@ function App() {
       </aside>
       <main>
         <ul>
+          {error && (
+            <li key="error" className="dev-item">
+              <label className="dev-error">{error}</label>
+            </li>
+          )}
           {devs.map(dev => (
             <li key={dev.id} className="dev-item">
               <header>
                 <img src={dev.avatar_url} alt={dev.name}/>
                 <div className="user-info">
                   <strong>{dev.name}</strong>
-                  <span>{dev.techs}</span>
+                  <span>{dev.techs?.join(', ')}</span>
                 </div>
               </header>
               <p>{dev.bio ? dev.bio : "Sem informação!"}</p>
