@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Objects;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/dev")
 public class NearDevController {
@@ -29,12 +30,26 @@ public class NearDevController {
     }
 
 
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity listDevs() {
         HashMap<String, String> response = new HashMap<>();
 
         try {
             return ResponseEntity.ok().body(devService.indexAllDevs());
+        } catch (DevNotFoundException e){
+            response.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity deleteDev(@PathVariable Long id) {
+        HashMap<String, String> response = new HashMap<>();
+        try {
+            devService.delete(id);
+            return ResponseEntity.noContent().build();
         } catch (DevNotFoundException e){
             response.put("error", e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);

@@ -52,4 +52,10 @@ public class NearDevService {
 
         return listDto;
     }
+
+    public void delete(Long id) {
+        NearDevEntity dev = nearDevRepository.findById(id)
+                .orElseThrow(DevNotFoundException::new);
+        nearDevRepository.delete(dev);
+    }
 }
